@@ -9,7 +9,6 @@ import 'package:venera/foundation/favorites.dart';
 import 'package:venera/foundation/history.dart';
 import 'package:venera/foundation/local.dart';
 import 'package:venera/foundation/log.dart';
-import 'package:venera/pages/comic_details_page/comic_page.dart';
 import 'package:venera/pages/comic_source_page.dart';
 import 'package:venera/pages/downloading_page.dart';
 import 'package:venera/pages/follow_updates_page.dart';
@@ -227,13 +226,11 @@ class _History extends StatefulWidget {
 }
 
 class _HistoryState extends State<_History> {
-  late List<History> history;
   late int count;
 
   void onHistoryChange() {
     if (mounted) {
       setState(() {
-        history = HistoryManager().getRecent();
         count = HistoryManager().count();
       });
     }
@@ -241,7 +238,6 @@ class _HistoryState extends State<_History> {
 
   @override
   void initState() {
-    history = HistoryManager().getRecent();
     count = HistoryManager().count();
     HistoryManager().addListener(onHistoryChange);
     super.initState();
@@ -295,32 +291,6 @@ class _HistoryState extends State<_History> {
                   ],
                 ),
               ).paddingHorizontal(16),
-              if (history.isNotEmpty)
-                SizedBox(
-                  height: 136,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: history.length,
-                    itemBuilder: (context, index) {
-                      final heroID = history[index].id.hashCode;
-                      return SimpleComicTile(
-                        comic: history[index],
-                        heroID: heroID,
-                        onTap: () {
-                          context.to(
-                            () => ComicPage(
-                              id: history[index].id,
-                              sourceKey: history[index].type.sourceKey,
-                              cover: history[index].cover,
-                              title: history[index].title,
-                              heroID: heroID,
-                            ),
-                          );
-                        },
-                      ).paddingHorizontal(8).paddingVertical(2);
-                    },
-                  ),
-                ).paddingHorizontal(8).paddingBottom(16),
             ],
           ),
         ),
@@ -337,19 +307,16 @@ class _Local extends StatefulWidget {
 }
 
 class _LocalState extends State<_Local> {
-  late List<LocalComic> local;
   late int count;
 
   void onLocalComicsChange() {
     setState(() {
-      local = LocalManager().getRecent();
       count = LocalManager().count;
     });
   }
 
   @override
   void initState() {
-    local = LocalManager().getRecent();
     count = LocalManager().count;
     LocalManager().addListener(onLocalComicsChange);
     super.initState();
@@ -405,32 +372,6 @@ class _LocalState extends State<_Local> {
                   ],
                 ),
               ).paddingHorizontal(16),
-              if (local.isNotEmpty)
-                SizedBox(
-                  height: 136,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: local.length,
-                    itemBuilder: (context, index) {
-                      final heroID = local[index].id.hashCode;
-                      return SimpleComicTile(
-                        comic: local[index],
-                        heroID: heroID,
-                        onTap: () {
-                          context.to(
-                            () => ComicPage(
-                              id: local[index].id,
-                              sourceKey: local[index].sourceKey,
-                              cover: local[index].cover,
-                              title: local[index].title,
-                              heroID: heroID,
-                            ),
-                          );
-                        },
-                      ).paddingHorizontal(8).paddingVertical(2);
-                    },
-                  ),
-                ).paddingHorizontal(8),
               Row(
                 children: [
                   if (LocalManager().downloadingTasks.isNotEmpty)
