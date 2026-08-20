@@ -42,6 +42,23 @@ part 'actions.dart';
 
 part 'cover_viewer.dart';
 
+const _namespaceLabels = <String, String>{
+  'author': '作者',
+  'genre': '类型',
+  'works': '作品',
+  'actors': '演员',
+  'status': '状态',
+  'other': '其他',
+};
+
+String _namespaceLabel(String namespace, String sourceKey) {
+  final translated = namespace.ts(sourceKey);
+  if (translated != namespace) {
+    return translated;
+  }
+  return _namespaceLabels[namespace.toLowerCase()] ?? namespace;
+}
+
 class ComicPage extends StatefulWidget {
   const ComicPage({
     super.key,
@@ -647,7 +664,10 @@ class _ComicPageState extends LoadingState<ComicPage, ComicDetails>
             buildWrap(
               children: [
                 if (e.value.isNotEmpty)
-                  buildTag(text: e.key.ts(comicSource.key), isTitle: true),
+                  buildTag(
+                    text: _namespaceLabel(e.key, comicSource.key),
+                    isTitle: true,
+                  ),
                 for (var tag in e.value)
                   buildTag(
                     text: enableTranslation
