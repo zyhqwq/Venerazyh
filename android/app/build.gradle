@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.github.wgh136.venera"
+    namespace = "com.zyhqwq.venerazyh"
     compileSdk = flutter.compileSdkVersion
     ndkVersion "28.0.13004108"
 
@@ -79,7 +79,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.github.wgh136.venera"
+        applicationId = "com.zyhqwq.venerazyh"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutter.minSdkVersion
