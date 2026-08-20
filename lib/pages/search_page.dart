@@ -588,8 +588,37 @@ class _SearchHistory extends StatefulWidget {
 }
 
 class _SearchHistoryState extends State<_SearchHistory> {
+  static const _foldThreshold = 10;
+
+  bool _expanded = false;
+
   @override
   Widget build(BuildContext context) {
+    final history = appdata.searchHistory;
+    final visibleCount = _expanded
+        ? history.length
+        : (history.length < _foldThreshold ? history.length : _foldThreshold);
+    final needFold = history.length > _foldThreshold;
+
+    Widget? foldButton;
+    if (needFold) {
+      foldButton = ListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(
+          _expanded ? "Fold".tl : "Show all (@a)".tlParams({'a': history.length}),
+          style: ts.s14,
+        ),
+        trailing: Icon(
+          _expanded ? Icons.expand_less : Icons.expand_more,
+        ),
+        onTap: () {
+          setState(() {
+            _expanded = !_expanded;
+          });
+        },
+      );
+    }
+
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
@@ -637,9 +666,12 @@ class _SearchHistoryState extends State<_SearchHistory> {
               ),
             );
           }
+          if (index == 2 + visibleCount) {
+            return foldButton ?? const SizedBox.shrink();
+          }
           return buildItem(index - 2);
         },
-        childCount: 2 + appdata.searchHistory.length,
+        childCount: 2 + visibleCount + (needFold ? 1 : 0),
       ),
     ).sliverPaddingHorizontal(16);
   }
