@@ -588,7 +588,7 @@ class _SearchHistory extends StatefulWidget {
 }
 
 class _SearchHistoryState extends State<_SearchHistory> {
-  static const _foldThreshold = 10;
+  static const _foldThreshold = 5;
 
   bool _expanded = false;
 
