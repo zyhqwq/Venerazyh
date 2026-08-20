@@ -3,7 +3,6 @@ import 'package:sliver_tools/sliver_tools.dart';
 import 'package:venera/components/components.dart';
 import 'package:venera/foundation/app.dart';
 import 'package:venera/foundation/comic_source/comic_source.dart';
-import 'package:venera/foundation/comic_source/parser.dart';
 import 'package:venera/foundation/consts.dart';
 import 'package:venera/foundation/history.dart';
 import 'package:venera/pages/comic_source_page.dart';
