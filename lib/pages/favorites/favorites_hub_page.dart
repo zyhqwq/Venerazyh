@@ -12,7 +12,6 @@ import 'package:venera/pages/favorites/favorites_page.dart';
 import 'package:venera/pages/follow_updates_page.dart';
 import 'package:venera/pages/image_favorites_page/image_favorites_page.dart';
 import 'package:venera/pages/local_comics_page.dart';
-import 'package:venera/utils/ext.dart';
 import 'package:venera/utils/import_comic.dart';
 import 'package:venera/utils/tags_translation.dart';
 import 'package:venera/utils/translations.dart';
